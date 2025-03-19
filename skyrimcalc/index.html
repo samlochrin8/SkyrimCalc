@@ -25,6 +25,15 @@
             height: 100%;
             overflow-y: scroll;
         }
+        /* Add this to your existing CSS */
+.filterViewport ul li a.nav-item,
+.filterViewport ul li a.nav-item:link,
+.filterViewport ul li a.nav-item:visited,
+.filterViewport ul li a.nav-item:hover,
+.filterViewport ul li a.nav-item:active {
+    color: inherit !important;
+    text-decoration: none !important;
+}
 
         .filterOne, .filterTwo {
             height: 100%;
@@ -124,14 +133,17 @@
 
     <div class="filterTwo">
         <div class="filterArrow"></div>
-        <div class="filterViewport">
-            <ul>
-                <li class="active">Calculators</li>
-                <li>Weapons</li>
-                <li>Armor</li>
-                <!-- Add more items as needed -->
-            </ul>
-        </div>
+<div class="filterViewport">
+    <ul>
+        <li class="active">Calculators</li>
+        <li>
+            <a href="weapon.html" class="nav-item">Weapon Calculator</a>
+        </li>
+        <li>
+            <a href="armor.html" class="nav-item">Armor Calculator</a>
+        </li>
+    </ul>
+</div>
     </div>
 
     <div class="displayBox">
