@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skyrim Item Database</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700,300" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Oswald', sans-serif;
+            color: #fff;
+            background: url(http://threepartstheory.files.wordpress.com/2011/11/elder-scrolls-skyrim-screenshot-4.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .filterViewport {
+            padding: 20px 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .filterOne, .filterTwo {
+            height: 100%;
+            width: 150px;
+            position: absolute;
+            top: 0;
+        }
+
+        .filterOne ul li, .filterTwo ul li {
+            position: relative;
+            width: 100%;
+            text-transform: uppercase;
+            padding: 10px 25px;
+            opacity: 0.6;
+            transition: 0.1s all;
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .filterOne ul li:hover, .filterTwo ul li:hover {
+            padding: 10px 30px;
+        }
+
+        .filterOne ul li.active, .filterTwo ul li.active {
+            padding: 10px 30px;
+            opacity: 1;
+        }
+
+        .filterArrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            right: -10px;
+            margin-top: -10px;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid rgba(0,0,0,0.8);
+        }
+
+        .filterOne {
+            left: 50px;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .filterTwo {
+            left: 220px;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .displayBox {
+            position: absolute;
+            bottom: 10%;
+            left: 500px;
+            width: 400px;
+            height: 200px;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+        }
+
+        .calculator-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .calculator-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px;
+            border: 2px solid #fff;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="filterOne">
+        <div class="filterArrow"></div>
+        <div class="filterViewport">
+            <ul>
+                <li class="active">All</li>
+                <li>Weapons</li>
+                <li>Apparel</li>
+                <li>Potions</li>
+                <li>Food</li>
+                <li>Ingredients</li>
+                <li>Books</li>
+                <li>Misc</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="filterTwo">
+        <div class="filterArrow"></div>
+        <div class="filterViewport">
+            <ul>
+                <li class="active">Calculators</li>
+                <li>Weapons</li>
+                <li>Armor</li>
+                <!-- Add more items as needed -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="displayBox">
+        <div class="calculator-links">
+            <a href="armor.html">Armor Rating Calculator</a>
+            <a href="weapon.html">Weapon Damage Calculator</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(window).on('load', function() {
+            const halfHeight = $('li.active').outerHeight(true) / 2;
+
+            $('li').on('click', function() {
+                const currentTop = $(this).offset().top;
+                const parentIndex = $(this).parent().index();
+                $(this).parent().find('li').removeClass('active');
+                $(this).addClass('active');
+                $('.filterArrow').eq(parentIndex).animate({
+                    'top': currentTop + halfHeight
+                }, 200);
+            });
+
+            $('.filterViewport').on('scroll', function() {
+                const currIndex = $(this).index();
+                setArrowPos(currIndex, halfHeight);
+            });
+
+            function setArrowPos(target, offset) {
+                $('.filterArrow').eq(target).css({
+                    'top': $('ul').eq(target).find('li.active').offset().top + offset
+                });
+            }
+
+            setArrowPos(0, halfHeight);
+            setArrowPos(1, halfHeight);
+        });
+    </script>
+</body>
+</html>
